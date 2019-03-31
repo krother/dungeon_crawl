@@ -52,7 +52,7 @@ class Level(TiledMap):
 
     def update(self):
         for m in self.monsters:
-            m.move()
+            m.update()
 
     def can_enter(self, pos):
         loc = self.locations.get(pos)
