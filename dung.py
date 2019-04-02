@@ -10,13 +10,13 @@ import time
 import re
 import random
 import arcade
-from arcade.key import ESCAPE
+from arcade.key import ESCAPE, SPACE
 from tilegamelib import TiledMap, load_tiles
 from tilegamelib import MapMove
 from tilegamelib import PLAYER_MOVES
 from tilegamelib import Vector
+from player import Player
 from level import Level
-from inventory import Inventory
 from monsters import Zombie
 
 
@@ -25,40 +25,11 @@ LEVEL_SWITCH_TIMER = 25
 
 SYNONYMS = [
     ('.', 'grey_dirt_0_new'),
+    ('~', 'green_water'),
     ('#', 'brick_gray_0'),
     ('player', 'deep_elf_fighter_new'),
     ('s', 'slot'),
 ]
-
-class Player:
-
-    def __init__(self, tiles, pos):
-        self.tiles = tiles
-        self.pos = pos
-        self.level = None
-        self.inv = Inventory(self.tiles, offset=Vector(500, 500))
-
-    def draw(self):
-        self.inv.draw()
-        px = self.level.pos_in_pixels(self.pos)
-        self.tiles['player'].draw(px.x, px.y, 32, 32)
-
-    def move(self, vec):
-        dest = self.pos + vec
-        if self.level.has_monster(dest):
-            if self.has_item('short_sword_3'):
-                self.level.kill(dest)
-        elif self.level.can_enter(dest):
-            self.pos = dest
-            item = self.level.take_item(self.pos)
-            if item:
-                self.inv.add(item)
-        else:
-            self.level.interact(dest, self.inv)
-
-    def has_item(self, item):
-        return item in self.inv.items
-
 
 
 class DungeonCrawl(arcade.Window):
@@ -70,12 +41,13 @@ class DungeonCrawl(arcade.Window):
         self.add_tile_synonyms()
         self.player = Player(self.tiles, None)
         self.level = None
-        self.enter_level('levels/dm01.json', Vector(1, 2))
-        #self.enter_level('levels/lv1.json', Vector(1, 2))
+        self.level_cache = {}
+        #self.enter_level('levels/dm01.json', Vector(1, 2))
+        self.enter_level('levels/lv1.json', Vector(1, 2))
 
     def create_zombies(self):
         zombie_horde = []
-        for i in range(10):
+        for i in range(3):
             x = random.randint(5, 12)
             y = random.randint(2, 10)
             z = Zombie('stonesoup/monster/skeletal_warrior_new.png', Vector(x, y), self.level)
@@ -83,10 +55,14 @@ class DungeonCrawl(arcade.Window):
         return zombie_horde
 
     def enter_level(self, filename, pos):
-        self.level = Level(filename, self.tiles, offset=Vector(50, 50))
+        if filename not in self.level_cache:
+            self.level = Level(filename, self.tiles, offset=Vector(50, 50))
+            self.level.add_monsters(self.create_zombies())
+            self.level_cache[filename] = self.level
+        else:
+            self.level = self.level_cache[filename]
         self.player.level = self.level
         self.player.pos = pos
-        self.level.add_monsters(self.create_zombies())
         self.timer = -1
 
     def add_tile_synonyms(self):
@@ -113,10 +89,12 @@ class DungeonCrawl(arcade.Window):
         vec = PLAYER_MOVES.get(symbol)
         if vec:
             self.player.move(vec)
-            if self.level.on_exit(self.player.pos):
-                self.timer = LEVEL_SWITCH_TIMER
+        elif symbol == SPACE:
+            self.player.jump()
         elif symbol == ESCAPE:
             arcade.window_commands.close_window()
+        if self.level.on_exit(self.player.pos):
+            self.timer = LEVEL_SWITCH_TIMER
 
 
 if __name__ == '__main__':

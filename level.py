@@ -5,6 +5,7 @@ from tilegamelib import TiledMap
 from tilegamelib import Vector
 
 ACCESSIBLE = {'open_door', 'stone_stairs_down', 'stone_stairs_up'}
+FLOOR = {'.', '~'}
 
 class Level(TiledMap):
 
@@ -56,9 +57,13 @@ class Level(TiledMap):
 
     def can_enter(self, pos):
         loc = self.locations.get(pos)
-        if not loc and self.at(pos) == '.':
+        if not loc and self.at(pos) in FLOOR:
             return True
         elif loc in ACCESSIBLE:
+            return True
+
+    def is_deadly(self, pos, plr):
+        if self.at(pos) == '~':
             return True
 
     def interact(self, pos, inventory):
