@@ -1,5 +1,6 @@
 name,file,x,y,w,h
 slot,stonesoup/slot.png,0,0,32,32
+heart,stonesoup/heart.png,0,0,32,32
 out_of_sight_new,stonesoup/unusd_misc/out_of_sight_new.png,0,0,32,32
 damage_meter_lightly_damaged,stonesoup/unusd_misc/damage_meter_lightly_damaged.png,0,0,32,32
 mask_shallow_water_murky,stonesoup/unusd_misc/mask_shallow_water_murky.png,0,0,32,32
@@ -63,6 +64,7 @@ brick_gray_0,stonesoup/dungeon/brick_gray_0.png,0,0,32,32
 zot_pillar,stonesoup/dungeon/zot_pillar.png,0,0,32,32
 stone_brick_1,stonesoup/dungeon/stone_brick_1.png,0,0,32,32
 green_water,stonesoup/dungeon/green_water.png,0,0,32,32
+blue_fountain,stonesoup/dungeon/blue_fountain.png,0,0,32,32
 dry_fountain,stonesoup/dungeon/dry_fountain.png,0,0,32,32
 statue_angel,stonesoup/dungeon/statue_angel.png,0,0,32,32
 grey_dirt_0_new,stonesoup/dungeon/grey_dirt_0_new.png,0,0,32,32
@@ -185,5 +187,6 @@ bailey_portal,stonesoup/dungeon/gateways/bailey_portal.png,0,0,32,32
 enter_labyrinth,stonesoup/dungeon/gateways/enter_labyrinth.png,0,0,32,32
 enter_cocytus,stonesoup/dungeon/gateways/enter_cocytus.png,0,0,32,32
 exit_pandemonium_flickering,stonesoup/dungeon/gateways/exit_pandemonium_flickering.png,0,0,32,32
+large_shield,stonesoup/item/large_shield.png,0,0,32,32
 key,stonesoup/item/key.png,0,0,32,32
 short_sword_3,stonesoup/item/short_sword_3.png,0,0,32,32

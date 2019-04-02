@@ -66,12 +66,15 @@ class Level(TiledMap):
         if self.at(pos) == '~':
             return True
 
-    def interact(self, pos, inventory):
+    def interact(self, pos, player):
         loc = self.locations.get(pos)
         if loc:
-            if loc == 'closed_door' and inventory.contains('key'):
-                inventory.remove('key')
+            if loc == 'closed_door' and player.inv.contains('key'):
+                player.inv.remove('key')
                 self.locations[pos] = 'open_door'
+            if loc == 'blue_fountain':
+                player.life.add('heart')
+
 
     def take_item(self, pos):
         item = self.items.get(pos)

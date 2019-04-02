@@ -8,28 +8,37 @@ class Player:
         self.tiles = tiles
         self.pos = pos
         self.level = None
-        self.inv = Inventory(self.tiles, offset=Vector(500, 500))
+        self.inv = Inventory(self.tiles, offset=Vector(550, 500))
+        self.life = Inventory(self.tiles, offset=Vector(550, 400), rows=1, cols=5)
         self._lastvec = Vector(0, 0)
+        for i in range(5):
+            self.life.add('heart')
 
     def draw(self):
         self.inv.draw()
+        self.life.draw()
         px = self.level.pos_in_pixels(self.pos)
         self.tiles['player'].draw(px.x, px.y, 32, 32)
+
+    def wounded(self):
+        self.life.remove('heart')
+        if not 'heart' in self.life.items:
+            self.die()
 
     def move(self, vec):
         dest = self.pos + vec
         if self.level.has_monster(dest):
             if self.has_item('short_sword_3'):
                 self.level.kill(dest)
-        elif self.level.is_deadly(dest, self):
-            self.die()
         elif self.level.can_enter(dest):
             self.pos = dest
             item = self.level.take_item(self.pos)
             if item:
                 self.inv.add(item)
         else:
-            self.level.interact(dest, self.inv)
+            self.level.interact(dest, self)
+        if self.level.is_deadly(self.pos, self):
+            self.wounded()
         self._lastvec = vec
 
     def jump(self):

@@ -21,11 +21,13 @@
    ["closed_door", 5, 3],
    ["closed_door", 7, 3],
    ["closed_door", 9, 3],
+   ["stone_stairs_up", 1, 6],
    ["stone_stairs_down", 12, 4],
    ["stone_stairs_down", 1, 9]
  ],
  "exits":[
-   [["won", 12, 4], 12, 4],
+   [["won", 11, 4], 12, 4],
+   [["levels/lv3.json", 8, 9], 1, 6],
    [["levels/lv2.json", 5, 3], 1, 9]
  ]
 }

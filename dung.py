@@ -43,14 +43,14 @@ class DungeonCrawl(arcade.Window):
         self.level = None
         self.level_cache = {}
         #self.enter_level('levels/dm01.json', Vector(1, 2))
-        self.enter_level('levels/lv1.json', Vector(1, 2))
+        self.enter_level('levels/lv1.json', Vector(2, 6))
 
     def create_zombies(self):
         zombie_horde = []
         for i in range(3):
             x = random.randint(5, 12)
             y = random.randint(2, 10)
-            z = Zombie('stonesoup/monster/skeletal_warrior_new.png', Vector(x, y), self.level)
+            z = Zombie('stonesoup/monster/skeletal_warrior_new.png', Vector(x, y), self.level, self.player)
             zombie_horde.append(z)
         return zombie_horde
 

@@ -18,6 +18,6 @@
    ["stone_stairs_up", 5, 2]
  ],
  "exits":[
-   [["levels/lv1.json", 2, 3], 5, 2]
+   [["levels/lv1.json", 2, 9], 5, 2]
  ]
 }
