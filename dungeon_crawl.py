@@ -17,7 +17,6 @@ from tilegamelib import PLAYER_MOVES
 from tilegamelib import Vector
 from player import Player
 from level import Level
-from monsters import Zombie
 
 
 SIZEX, SIZEY = (800, 600)
@@ -45,19 +44,9 @@ class DungeonCrawl(arcade.Window):
         #self.enter_level('levels/dm01.json', Vector(1, 2))
         self.enter_level('levels/lv1.json', Vector(2, 6))
 
-    def create_zombies(self):
-        zombie_horde = []
-        for i in range(3):
-            x = random.randint(5, 12)
-            y = random.randint(2, 10)
-            z = Zombie('stonesoup/monster/skeletal_warrior_new.png', Vector(x, y), self.level, self.player)
-            zombie_horde.append(z)
-        return zombie_horde
-
     def enter_level(self, filename, pos):
         if filename not in self.level_cache:
-            self.level = Level(filename, self.tiles, offset=Vector(50, 50))
-            self.level.add_monsters(self.create_zombies())
+            self.level = Level(filename, self.tiles, self.player, offset=Vector(50, 50))
             self.level_cache[filename] = self.level
         else:
             self.level = self.level_cache[filename]

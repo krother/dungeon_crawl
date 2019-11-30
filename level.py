@@ -3,24 +3,32 @@ import json
 import re
 from tilegamelib import TiledMap
 from tilegamelib import Vector
+from monsters import MONSTERS
 
 ACCESSIBLE = {'open_door', 'stone_stairs_down', 'stone_stairs_up'}
 FLOOR = {'.', '~'}
 
+
 class Level(TiledMap):
 
-    def __init__(self, filename, tiles, offset):
+    def __init__(self, filename, tiles, player, offset):
         self.tiles = tiles
+        self.player = player
         j = json.load(open(filename))
         dungeon = '\n'.join(j['map'])
         super().__init__(tiles, dungeon, offset)
         self.items = self.load_specials(j['items'])
         self.locations = self.load_specials(j['locations'])
         self.exits = self.load_specials(j['exits'])
-        self.monsters = []
+        self.monsters = self.create_monsters(j['monsters'])
 
-    def add_monsters(self, m):
-        self.monsters += m
+    def create_monsters(self, monsters):
+        mon = []
+        for name, x, y in monsters:
+            mtype = MONSTERS[name]
+            m = mtype(Vector(x, y), self, self.player)
+            mon.append(m)
+        return mon
 
     def load_specials(self, things):
         result = {}

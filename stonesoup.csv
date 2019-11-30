@@ -49,6 +49,7 @@ sensed_monster_easy,stonesoup/unusd_misc/sensed_monster_easy.png,0,0,32,32
 sensed_monster_friendly,stonesoup/unusd_misc/sensed_monster_friendly.png,0,0,32,32
 ray_out_of_range,stonesoup/unusd_misc/ray_out_of_range.png,0,0,32,32
 unseen_monster,stonesoup/unusd_misc/unseen_monster.png,0,0,32,32
+dragon,stonesoup/monster/dragon.png,0,0,32,32
 deep_elf_master_archer,stonesoup/monster/deep_elf_master_archer.png,0,0,32,32
 deep_elf_high_priest,stonesoup/monster/deep_elf_high_priest.png,0,0,32,32
 deep_elf_mage,stonesoup/monster/deep_elf_mage.png,0,0,32,32
