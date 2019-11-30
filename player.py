@@ -1,5 +1,6 @@
 from inventory import Inventory
 from tilegamelib import Vector
+import arcade
 
 
 class Player:
@@ -13,6 +14,9 @@ class Player:
         self._lastvec = Vector(0, 0)
         for i in range(5):
             self.life.add('heart')
+
+    def die(self):
+        arcade.window_commands.close_window()
 
     def draw(self):
         self.inv.draw()
