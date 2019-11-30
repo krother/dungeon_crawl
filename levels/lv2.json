@@ -12,6 +12,10 @@
    ["key", 1, 1],
    ["key", 9, 1]
  ],
+ "monsters":[
+   ["zombie", 5, 3],
+   ["zombie", 5, 7]
+ ],
  "locations":[
    ["statue_angel", 3, 2],
    ["statue_angel", 7, 2],

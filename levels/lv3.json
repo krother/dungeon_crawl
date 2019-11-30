@@ -14,6 +14,12 @@
  "items":[
    ["large_shield", 1, 1]
  ],
+ "monsters":[
+   ["zombie", 3, 4],
+   ["zombie", 7, 4],
+   ["zombie", 3, 6],
+   ["zombie", 7, 6]
+ ],
  "locations":[
    ["blue_fountain", 5, 5],
    ["statue_angel", 3, 3],
